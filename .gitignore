@@ -1,2 +1,17 @@
 # Node.js dependencies
 node_modules/
+
+# env
+.env.local
+
+# Build output
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
