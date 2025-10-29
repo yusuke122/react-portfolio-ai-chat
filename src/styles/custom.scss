@@ -1,121 +1,242 @@
-// Bootstrap overrides and custom variables
-$primary: #0066cc;
-$secondary: #6c757d;
-$success: #28a745;
-$info: #17a2b8;
-$warning: #ffc107;
-$danger: #dc3545;
-$light: #e0f2fe;
-$dark: #343a40;
+// =============================================================================
+// Custom Component Styles
+// =============================================================================
+// This file contains component-specific styles that extend the base theme
+// For base variables and theme configuration, see _variables.scss
 
-// Theme colors
-:root {
-  --background-light: #{$light};
-  --background-dark: #{$dark};
-  --text-light: #0c4a6e;
-  --text-dark: #{$light};
-  --surface-color-light: #60a5fa;
-  --surface-color-dark: #899097; /* ダークモード時のコンテンツ内部を少し明るい灰色に */
-  --primary-color: #{$primary};
-  --accent-color: #00cc99;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --text-bright: #f8fafc;
-  --gradient-start: #60a5fa; /* blue-400 */
-  --gradient-end: #34d399;   /* emerald-400 */
+@import 'variables';  // Import unified variables
+
+// =============================================================================
+// Legacy Bootstrap Overrides (deprecated)
+// =============================================================================
+// These will be migrated to the new variable system gradually
+
+$primary: #667eea;
+$secondary: #764ba2;
+$success: #2ecc71;
+$info: #3498db;
+$warning: #f39c12;
+$danger: #e74c3c;
+$light: #f8fafc;
+$dark: #1a202c;
+
+// =============================================================================
+// Extended Glass Morphism Components
+// =============================================================================
+
+.glass-card {
+  background: var(--glass-background);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 
+    0 8px 32px var(--shadow-color),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: var(--transition-smooth);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 16px 40px var(--shadow-color),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
 }
 
-[data-theme='dark'] {
-  --background: var(--background-dark);
-  --text: var(--text-dark);
-  --surface-color: var(--surface-color-dark);
-  --shadow-color: rgba(255, 255, 255, 0.05);
-  --text-color: var(--text);
-  --border-color: rgba(255, 255, 255, 0.15);
-}
-
-[data-theme='light'] {
-  --background: var(--background-light);
-  --text: var(--text-light);
-  --surface-color: var(--surface-color-light);
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --text-color: var(--text);
-  --border-color: rgba(0, 0, 0, 0.08);
-}
-
-.app-container {
-    min-height: 100vh;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    background-color: var(--background);
-    color: var(--text);
-    padding-top: 60px;
-}
-
-.welcome-section {
-    text-align: center;
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
-
-    h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    p {
-        font-size: 1.2rem;
-        color: var(--text-bright);
-        max-width: 600px;
-        margin: 0 auto;
-    }
-}
-
-.main-content {
-    padding: 2rem;
-    max-width: 1440px;
-    margin: 0 auto;
-}
-
-/* Contact page */
-.contact-page {
-  min-height: calc(100vh - 60px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
-/* Chat page */
-.chat-page {
-  min-height: calc(100vh - 60px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
-/* Contact page */
-.contact-page {
-  min-height: calc(100vh - 60px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
-.contact-card {
-  width: 100%;
-  max-width: 720px;
-  /* ページスクロールのみを使用するため、内側スクロールを無効化 */
-  max-height: none;
-  overflow: visible;
-  background: var(--surface-color);
-  border-radius: 12px;
-  box-shadow: 0 8px 20px var(--shadow-color);
+.glass-panel {
+  background: var(--glass-background);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
   padding: 2rem;
+  margin: 1rem 0;
 }
+
+.glass-button {
+  background: var(--glass-background);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+  }
+}
+
+// =============================================================================
+// Enhanced Neon Effects
+// =============================================================================
+
+.neon-glow {
+  box-shadow: var(--neon-glow);
+  transition: var(--transition-smooth);
+  
+  &:hover {
+    box-shadow: 
+      var(--neon-glow),
+      0 0 40px var(--accent-color);
+  }
+}
+
+.neon-text {
+  color: var(--accent-color);
+  text-shadow: 
+    0 0 5px var(--accent-color),
+    0 0 10px var(--accent-color),
+    0 0 15px var(--accent-color);
+  
+  &.pink {
+    color: var(--accent-secondary);
+    text-shadow: 
+      0 0 5px var(--accent-secondary),
+      0 0 10px var(--accent-secondary),
+      0 0 15px var(--accent-secondary);
+  }
+}
+
+// =============================================================================
+// Advanced Gradient Components
+// =============================================================================
+
+.gradient-bg {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 50%,
+    var(--accent-color) 100%
+  );
+}
+
+.gradient-border {
+  border: 2px solid;
+  border-image: linear-gradient(45deg, var(--primary-color), var(--accent-color)) 1;
+  border-radius: var(--border-radius);
+}
+
+// =============================================================================
+// Interactive Elements
+// =============================================================================
+
+.interactive-card {
+  background: var(--glass-background);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 
+    0 8px 32px var(--shadow-color),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+  
+  &:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--neon-glow);
+  }
+}
+
+// =============================================================================
+// Form Enhancements
+// =============================================================================
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1rem;
+  color: var(--text-color);
+  
+  &::placeholder {
+    color: var(--text-muted);
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-color);
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+// =============================================================================
+// Navigation Enhancements
+// =============================================================================
+
+.nav-glass {
+  background: var(--glass-background);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-fixed);
+}
+
+// =============================================================================
+// Modal & Overlay Styles
+// =============================================================================
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: var(--z-modal-backdrop);
+}
+
+.modal-content {
+  background: var(--glass-background);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 
+    0 8px 32px var(--shadow-color),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: var(--transition-smooth);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  z-index: var(--z-modal);
+}
+
 
 [data-theme='light'] .contact-card {
   background: #46598f; /* 暗い紺色 (blue-900) */
@@ -358,4 +479,90 @@ $dark: #343a40;
 
 .submit-button.secondary {
   background: linear-gradient(135deg, var(--secondary), #5a6268);
+}
+
+// =============================================================================
+// Page Layout & Navigation Fixes
+// =============================================================================
+
+/* グローバルナビゲーション修正 */
+.contact-page,
+.chat-page {
+  min-height: calc(100vh - var(--header-height));
+  padding-top: 0; /* グローバル設定に依存 */
+  display: flex;
+  justify-content: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* お問い合わせ画面をグリッド風レイアウトに */
+.contact-page {
+  .contact-card {
+    display: grid;
+    max-width: 1600px;
+    width: 100%;
+    margin: 1rem auto 0 auto;
+    gap: 2rem; /* AIチャット画面と同じギャップ */
+    
+    @media (max-width: 768px) {
+      gap: 1rem;
+    }
+  }
+}
+
+/* お問い合わせ画面の横幅統一 */
+.contact-card {
+  width: 100%;
+  max-width: 1600px; /* AIチャット画面と統一 */
+  margin: 1rem auto 0 auto; /* AIチャット画面と同様のmargin-top */
+  background: var(--surface-color);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1.5rem; /* AIチャット画面と同じパディング */
+  border-radius: 12px; /* AIチャット画面と同じ角丸 */
+  box-shadow: 0 4px 6px var(--shadow-color); /* AIチャット画面と同じシャドウ */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 8px 12px var(--shadow-color);
+    transform: translateY(-2px);
+  }
+}
+
+/* コンテンツグリッドのナビゲーション修正 */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 1rem 2rem 2rem 2rem; /* トップパディング調整 - margin-topを軽減 */
+  min-height: calc(100vh - var(--header-height));
+  align-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 1rem 1rem 1rem 1rem;
+  }
+}
+
+/* 成功・エラーページの修正 */
+.success-card,
+.error-card {
+  text-align: center;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* 全ページでのナビゲーションバー対策 */
+.app-container .main-content {
+  padding-top: var(--header-height);
+}
+
+/* ヘッダーが固定されている場合の対策 */
+.main-content > * {
+  scroll-margin-top: var(--header-height);
 }

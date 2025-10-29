@@ -1,14 +1,18 @@
+@import '../../styles/variables'; // グローバル変数をインポート
+
 .header {
-  background: rgba(30, 41, 59);
-  backdrop-filter: blur(10px);
+  background: rgba(30, 41, 59, 0.9); /* 透明度を調整 */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-color);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: var(--z-fixed);
   transition: all 0.3s ease;
   padding: 0.5rem 0;
+  height: var(--header-height); /* 高さを明示的に設定 */
 
   .header-content {
     max-width: 1200px;
@@ -24,10 +28,18 @@
     font-weight: 700;
     color: var(--text-color);
     text-decoration: none;
-    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    transition: var(--transition-smooth);
+    
+    /* フォールバック用の色を追加 */
+    @supports not (-webkit-background-clip: text) {
+      color: var(--primary-color);
+      background: none;
+      -webkit-text-fill-color: initial;
+    }
 
     &:hover {
       transform: scale(1.05);

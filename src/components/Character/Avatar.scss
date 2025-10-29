@@ -1,0 +1,349 @@
+@import '../../styles/variables'; // グローバル変数をインポート
+
+// キャラクターアバターのスタイル
+.avatar {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  
+  &--small {
+    width: 60px;
+    height: 80px;
+  }
+  
+  &--medium {
+    width: 100px;
+    height: 130px;
+  }
+  
+  &--large {
+    width: 140px;
+    height: 180px;
+  }
+
+  &:hover {
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+  }
+
+  &__head {
+    position: relative;
+    width: 70%;
+    height: 50%;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #ffdbac 0%, #ffc999 100%);
+    border-radius: 50% 50% 45% 45%;
+    box-shadow: 
+      inset 0 -5px 10px rgba(255, 180, 120, 0.3),
+      0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  &__face {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 60%;
+  }
+
+  &__eyes {
+    position: relative;
+    top: 20%;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    margin: 0 auto;
+    transition: transform 0.2s ease;
+  }
+
+  &__eye {
+    width: 8px;
+    height: 8px;
+    background: #2c3e50;
+    border-radius: 50%;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+    }
+    
+    &--left {
+      animation: eyeMove 4s infinite ease-in-out;
+    }
+    
+    &--right {
+      animation: eyeMove 4s infinite ease-in-out 0.1s;
+    }
+  }
+
+  &__mouth {
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 6px;
+    border-radius: 0 0 12px 12px;
+    transition: all 0.3s ease;
+    
+    &--idle {
+      background: #e74c3c;
+      opacity: 0.8;
+    }
+    
+    &--happy {
+      background: #e74c3c;
+      width: 16px;
+      height: 8px;
+      border-radius: 0 0 16px 16px;
+      animation: smile 0.5s ease infinite alternate;
+    }
+    
+    &--thinking {
+      background: #95a5a6;
+      width: 8px;
+      height: 4px;
+      border-radius: 50%;
+    }
+    
+    &--talking {
+      background: #e74c3c;
+      animation: talk 0.4s ease infinite;
+    }
+  }
+
+  &__hair {
+    position: absolute;
+    top: -5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 40%;
+    background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+    border-radius: 50% 50% 20% 20%;
+    z-index: -1;
+  }
+
+  &__body {
+    position: relative;
+    width: 80%;
+    height: 50%;
+    margin: 0 auto;
+    top: -10%;
+  }
+
+  &__torso {
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    border-radius: 15px 15px 20px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 15%;
+      left: 20%;
+      width: 60%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+    }
+  }
+
+  &__arms {
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    height: 40%;
+  }
+
+  &__arm {
+    position: absolute;
+    width: 15px;
+    height: 35px;
+    background: linear-gradient(135deg, #ffdbac 0%, #ffc999 100%);
+    border-radius: 8px;
+    
+    &--left {
+      left: -8px;
+      transform: rotate(15deg);
+      animation: armSwing 3s ease-in-out infinite;
+    }
+    
+    &--right {
+      right: -8px;
+      transform: rotate(-15deg);
+      animation: armSwing 3s ease-in-out infinite reverse;
+    }
+  }
+
+  // パーティクルエフェクト
+  &__particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  &__particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #f39c12;
+    border-radius: 50%;
+    animation: particleFloat 2s ease-in-out infinite;
+    
+    &--0 {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    
+    &--1 {
+      top: 30%;
+      right: 10%;
+      animation-delay: 0.3s;
+    }
+    
+    &--2 {
+      top: 40%;
+      left: 5%;
+      animation-delay: 0.6s;
+    }
+    
+    &--3 {
+      top: 25%;
+      right: 5%;
+      animation-delay: 0.9s;
+    }
+    
+    &--4 {
+      top: 35%;
+      left: 15%;
+      animation-delay: 1.2s;
+    }
+    
+    &--5 {
+      top: 45%;
+      right: 15%;
+      animation-delay: 1.5s;
+    }
+  }
+
+  // ムードに応じたグローエフェクト
+  &--happy {
+    &::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: -1;
+      animation: happyGlow 2s ease-in-out infinite alternate;
+    }
+  }
+  
+  &--thinking {
+    &::after {
+      content: '💭';
+      position: absolute;
+      top: -20px;
+      right: -10px;
+      font-size: 20px;
+      animation: thoughtBubble 1.5s ease-in-out infinite;
+    }
+  }
+}
+
+// アニメーション定義
+@keyframes eyeMove {
+  0%, 90%, 100% { transform: translateX(0); }
+  45% { transform: translateX(1px); }
+}
+
+@keyframes smile {
+  0% { transform: translateX(-50%) scaleX(1); }
+  100% { transform: translateX(-50%) scaleX(1.1); }
+}
+
+@keyframes talk {
+  0%, 100% { transform: translateX(-50%) scaleY(1); }
+  50% { transform: translateX(-50%) scaleY(0.6); }
+}
+
+@keyframes armSwing {
+  0%, 100% { transform: rotate(15deg); }
+  50% { transform: rotate(25deg); }
+}
+
+@keyframes particleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-25px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0);
+  }
+}
+
+@keyframes happyGlow {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes thoughtBubble {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translateY(0) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1);
+  }
+}
+
+// レスポンシブ対応
+@media (max-width: 768px) {
+  .avatar {
+    &--medium {
+      width: 80px;
+      height: 104px;
+    }
+    
+    &--large {
+      width: 100px;
+      height: 130px;
+    }
+  }
+}

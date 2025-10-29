@@ -43,7 +43,7 @@ const resourcesJa = {
       portfolio: 'ポートフォリオ',
       chat: 'AIチャット',
       editor: 'エディタ',
-      contact: 'ご意見・お問い合わせ'
+      contact: 'お問い合わせ'
     },
     // ホームページ
     pages: {

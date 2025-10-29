@@ -1,0 +1,139 @@
+// =============================================================================
+// CSS Variables & Theme Configuration
+// =============================================================================
+
+// Base color palette
+$primary: #667eea;
+$secondary: #764ba2;
+$success: #2ecc71;
+$info: #3498db;
+$warning: #f39c12;
+$danger: #e74c3c;
+$light: #f8fafc;
+$dark: #1a202c;
+
+// Advanced color palette
+$neon-blue: #00f5ff;
+$neon-pink: #ff10f0;
+$neon-green: #39ff14;
+$electric-purple: #bf00ff;
+$cyber-orange: #ff6600;
+
+// Gradient definitions
+$gradient-primary: linear-gradient(135deg, $primary 0%, $secondary 100%);
+$gradient-neon: linear-gradient(45deg, $neon-blue 0%, $neon-pink 100%);
+$gradient-light: linear-gradient(135deg, $light 0%, #e2e8f0 100%);
+$gradient-dark: linear-gradient(135deg, $dark 0%, #2d3748 100%);
+
+:root {
+  // ===============================
+  // Base Color Variables
+  // ===============================
+  --primary-color: #{$primary};
+  --secondary-color: #{$secondary};
+  --success-color: #{$success};
+  --info-color: #{$info};
+  --warning-color: #{$warning};
+  --danger-color: #{$danger};
+  --light-color: #{$light};
+  --dark-color: #{$dark};
+  
+  // ===============================
+  // Accent Colors
+  // ===============================
+  --accent-color: #{$neon-blue};
+  --accent-secondary: #{$neon-pink};
+  --accent-green: #{$neon-green};
+  --accent-purple: #{$electric-purple};
+  --accent-orange: #{$cyber-orange};
+  
+  // ===============================
+  // Background & Surface
+  // ===============================
+  --background-light: #{$gradient-light};
+  --background-dark: #{$gradient-dark};
+  --surface-light: rgba(255, 255, 255, 0.8);
+  --surface-dark: rgba(45, 55, 72, 0.8);
+  --glass-background: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  
+  // ===============================
+  // Text Colors
+  // ===============================
+  --text-light: #{$dark};
+  --text-dark: #{$light};
+  --text-muted-light: #64748b;
+  --text-muted-dark: #94a3b8;
+  --text-bright: #{$light};
+  
+  // ===============================
+  // Border & Shadows
+  // ===============================
+  --border-light: rgba(148, 163, 184, 0.2);
+  --border-dark: rgba(255, 255, 255, 0.15);
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.3);
+  --neon-glow: 0 0 20px rgba(0, 245, 255, 0.5);
+  --neon-glow-pink: 0 0 20px rgba(255, 16, 240, 0.5);
+  
+  // ===============================
+  // Animation & Transitions
+  // ===============================
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-fast: all 0.2s ease;
+  --transition-slow: all 0.8s ease;
+  --animation-duration: 0.8s;
+  
+  // ===============================
+  // Spacing & Layout
+  // ===============================
+  --header-height: 80px;
+  --sidebar-width: 280px;
+  --border-radius: 12px;
+  --border-radius-lg: 20px;
+  --border-radius-sm: 8px;
+  
+  // ===============================
+  // Z-index Stack
+  // ===============================
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+}
+
+// ===============================
+// Theme Implementations
+// ===============================
+[data-theme='light'] {
+  --background: var(--background-light);
+  --surface-color: var(--surface-light);
+  --text-color: var(--text-light);
+  --text-muted: var(--text-muted-light);
+  --border-color: var(--border-light);
+  --shadow-color: var(--shadow-light);
+}
+
+[data-theme='dark'] {
+  --background: var(--background-dark);
+  --surface-color: var(--surface-dark);
+  --text-color: var(--text-dark);
+  --text-muted: var(--text-muted-dark);
+  --border-color: var(--border-dark);
+  --shadow-color: var(--shadow-dark);
+}
+
+// Default theme (dark)
+:root {
+  --background: var(--background-dark);
+  --surface-color: var(--surface-dark);
+  --text-color: var(--text-dark);
+  --text-muted: var(--text-muted-dark);
+  --border-color: var(--border-dark);
+  --shadow-color: var(--shadow-dark);
+}
