@@ -36,9 +36,6 @@ interface Resources {
 const resourcesJa = {
   translation: {
     welcome: 'ようこそ',
-    portfolio: 'ポートフォリオ',
-    chat: 'チャット',
-    editor: 'エディタ',
     // ナビゲーション
     nav: {
       home: 'ホーム',
@@ -47,15 +44,16 @@ const resourcesJa = {
       editor: 'エディタ'
     },
     // ホームページ
-    home: {
-      title: 'React ポートフォリオ',
-      description: 'AI チャット機能付きポートフォリオサイト'
-    },
-    // チャット
-    chat: {
-      placeholder: 'メッセージを入力...',
-      send: '送信',
-      clear: 'クリア'
+    pages: {
+      home: {
+        title: 'React ポートフォリオ',
+        description: 'AI チャット機能付きポートフォリオサイト'
+      },
+      chat: {
+        placeholder: 'メッセージを入力...',
+        send: '送信',
+        clear: 'クリア'
+      }
     }
   }
 };
@@ -64,9 +62,6 @@ const resourcesJa = {
 const resourcesEn = {
   translation: {
     welcome: 'Welcome',
-    portfolio: 'Portfolio',
-    chat: 'Chat',
-    editor: 'Editor',
     // Navigation
     nav: {
       home: 'Home',
@@ -74,16 +69,17 @@ const resourcesEn = {
       chat: 'AI Chat',
       editor: 'Editor'
     },
-    // Home page
-    home: {
-      title: 'React Portfolio',
-      description: 'Portfolio site with AI Chat feature'
-    },
-    // Chat
-    chat: {
-      placeholder: 'Type a message...',
-      send: 'Send',
-      clear: 'Clear'
+    // Pages
+    pages: {
+      home: {
+        title: 'React Portfolio',
+        description: 'Portfolio site with AI Chat feature'
+      },
+      chat: {
+        placeholder: 'Type a message...',
+        send: 'Send',
+        clear: 'Clear'
+      }
     }
   }
 };

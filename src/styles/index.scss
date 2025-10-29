@@ -1,0 +1,110 @@
+@import 'bootstrap/scss/bootstrap';
+
+:root {
+  --primary: #0066cc;
+  --secondary: #6c757d;
+  --background: #ffffff;
+  --background-alt: #f8f9fa;
+  --text: #212529;
+  --border-color: #dee2e6;
+  --input-background: #ffffff;
+}
+
+[data-theme="dark"] {
+  --primary: #66b3ff;
+  --background: #1a1a1a;
+  --background-alt: #2d2d2d;
+  --text: #ffffff;
+  --border-color: #444444;
+  --input-background: #2d2d2d;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  position: relative;
+  overflow-x: hidden;
+}
+
+// アニメーション用のユーティリティクラス
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+// ホバーエフェクト
+.hover-lift {
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// アクセシビリティ
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// カスタムスクロールバー
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+  
+  &:hover {
+    background: darken(#0066cc, 10%);
+  }
+}
+
+// フォーカス表示の改善
+:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
