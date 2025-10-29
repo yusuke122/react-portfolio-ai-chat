@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,11 +10,25 @@ export const Header: React.FC = () => {
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Open nav by default on desktop and close on mobile
+  useEffect(() => {
+    const apply = () => {
+      const desktop = window.innerWidth >= 768;
+      setIsDesktop(desktop);
+      setIsMenuOpen(desktop);
+    };
+    apply();
+    window.addEventListener('resize', apply);
+    return () => window.removeEventListener('resize', apply);
+  }, []);
 
   const menuItems = [
     { path: '/', label: t('nav.home') },
     { path: '/chat', label: t('nav.chat') },
-    { path: '/editor', label: t('nav.editor') }
+    { path: '/editor', label: t('nav.editor') },
+    { path: '/contact', label: t('nav.contact') },
   ];
 
   const variants = {
@@ -47,7 +61,7 @@ export const Header: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Portfolio
+            AI Chat Portfolio
           </motion.span>
         </Link>
 
@@ -64,8 +78,8 @@ export const Header: React.FC = () => {
         <AnimatePresence>
           <motion.nav
             className={`nav-links ${isMenuOpen ? 'open' : ''}`}
-            initial="closed"
-            animate={isMenuOpen ? 'open' : 'closed'}
+            initial={isDesktop ? 'open' : 'closed'}
+            animate={isDesktop || isMenuOpen ? 'open' : 'closed'}
             variants={variants}
           >
             {menuItems.map((item) => (

@@ -6,6 +6,9 @@ import { Header } from './components/Layout/Header';
 import { Home } from './pages/index';
 import { ChatInterface } from './components/Chat/ChatInterface';
 import { Editor } from './components/Editor/Editor';
+import Contact from './pages/Contact';
+import ContactSuccess from './pages/ContactSuccess';
+import ContactError from './pages/ContactError';
 import './styles/custom.scss';
 
 const App: React.FC = () => {
@@ -66,6 +69,7 @@ const App: React.FC = () => {
                     initial="initial"
                     animate="enter"
                     exit="exit"
+                    className="chat-page"
                   >
                     <ChatInterface />
                   </motion.div>
@@ -82,8 +86,57 @@ const App: React.FC = () => {
                     initial="initial"
                     animate="enter"
                     exit="exit"
+                    className="editor-page"
                   >
                     <Editor />
+                  </motion.div>
+                </AnimatePresence>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={location.pathname}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="enter"
+                    exit="exit"
+                  >
+                    <Contact />
+                  </motion.div>
+                </AnimatePresence>
+              }
+            />
+            <Route
+              path="/contact/success"
+              element={
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={location.pathname}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="enter"
+                    exit="exit"
+                  >
+                    <ContactSuccess />
+                  </motion.div>
+                </AnimatePresence>
+              }
+            />
+            <Route
+              path="/contact/error"
+              element={
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={location.pathname}
+                    variants={pageVariants}
+                    initial="initial"
+                    animate="enter"
+                    exit="exit"
+                  >
+                    <ContactError />
                   </motion.div>
                 </AnimatePresence>
               }

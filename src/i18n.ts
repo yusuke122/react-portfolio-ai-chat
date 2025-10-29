@@ -17,6 +17,7 @@ interface Resources {
       portfolio: string;
       chat: string;
       editor: string;
+      contact: string;
     };
     pages: {
       home: {
@@ -41,7 +42,8 @@ const resourcesJa = {
       home: 'ホーム',
       portfolio: 'ポートフォリオ',
       chat: 'AIチャット',
-      editor: 'エディタ'
+      editor: 'エディタ',
+      contact: 'ご意見・お問い合わせ'
     },
     // ホームページ
     pages: {
@@ -67,7 +69,8 @@ const resourcesEn = {
       home: 'Home',
       portfolio: 'Portfolio',
       chat: 'AI Chat',
-      editor: 'Editor'
+      editor: 'Editor',
+      contact: 'Contact'
     },
     // Pages
     pages: {

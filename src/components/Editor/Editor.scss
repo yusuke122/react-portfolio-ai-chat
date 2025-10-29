@@ -1,41 +1,65 @@
 .editor-container {
-  min-height: calc(100vh - 160px);
-  background: var(--background);
+  width: 100%;
+  max-width: 720px;
+  height: 85vh;
+  margin: 0 auto; /* 中央寄せ */
+  background: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px var(--shadow-color);
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow: hidden;
 
   .editor-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
 
     h2 {
       margin: 0;
-      font-size: 2rem;
-      background: linear-gradient(45deg, var(--primary), var(--info));
+      font-size: 1.75rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: titleGradient 3s ease infinite;
+    }
+
+    .d-flex {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      
+      span {
+        font-weight: 600;
+      }
     }
   }
 
   .editor-content {
+    flex: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
-    padding: 1rem;
-    min-height: 400px;
-    background: var(--background-alt);
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    min-height: 300px;
+    /* コンテンツ中央寄せ */
+    place-content: center;
+    justify-items: center;
+    align-items: center;
 
     .image-container {
       position: relative;
       background: white;
-      border-radius: 0.5rem;
+      border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       cursor: grab;
+      aspect-ratio: 1;
 
       &:active {
         cursor: grabbing;
@@ -48,58 +72,33 @@
         transition: transform 0.3s ease;
       }
 
-      .image-controls {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 0.5rem;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        justify-content: space-between;
-        opacity: 0;
-        transform: translateY(100%);
-        transition: all 0.3s ease;
+      &:hover img {
+        transform: scale(1.05);
       }
-
-      &:hover {
-        .image-controls {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        img {
-          transform: scale(1.05);
-        }
-      }
-    }
-  }
-
-  .switch-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    background: var(--background-alt);
-    border-radius: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-    label {
-      margin: 0;
-      font-weight: 500;
     }
   }
 }
 
-@keyframes titleGradient {
-  0% {
-    background-position: 0% 50%;
+/* ライトモード時のエディタスタイル */
+[data-theme='light'] .editor-container {
+  background: #46598f;
+  color: #e0f2fe;
+
+  .editor-header {
+    h2 {
+      background: linear-gradient(135deg, #60a5fa, #34d399);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    span {
+      color: #bfdbfe;
+    }
   }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+
+  .editor-content {
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 

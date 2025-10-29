@@ -21,19 +21,14 @@ export default defineConfig({
   server: {
     port: 5173,
     open: true,
-    // SPA のルーティングに必要な設定
     cors: true,
-    middleware: [
-      (req, res, next) => {
-        // SPA のための History API Fallback
-        if (req.url?.includes('.')) {
-          next();
-        } else {
-          req.url = '/';
-          next();
-        }
+    proxy: {
+      // ローカル開発では Vite が /api を開発用 API サーバーへプロキシ
+      '/api': {
+        target: 'http://localhost:8787',
+        changeOrigin: true,
       },
-    ],
+    },
   },
   base: './', // 相対パスでアセットを読み込む
 });
