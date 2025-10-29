@@ -1,66 +1,99 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useThemeStore } from '@/hooks/useTheme';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../../hooks/useTheme';
 import './Header.scss';
 
 export const Header: React.FC = () => {
   const { t } = useTranslation();
-  const { theme, toggleTheme } = useThemeStore();
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navItems = [
-    { path: '/', label: 'nav.home' },
-    { path: '/portfolio', label: 'nav.portfolio' },
-    { path: '/chat', label: 'nav.chat' },
-    { path: '/editor', label: 'nav.editor' }
+  const menuItems = [
+    { path: '/', label: t('nav.home') },
+    { path: '/chat', label: t('nav.chat') },
+    { path: '/editor', label: t('nav.editor') }
   ];
 
-  return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="header bg-light shadow-sm"
-    >
-      <nav className="navbar navbar-expand-lg navbar-light container">
-        <motion.div 
-          className="navbar-brand"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Link to="/" className="text-decoration-none">
-            Portfolio AI Chat
-          </Link>
-        </motion.div>
+  const variants = {
+    open: {
+      opacity: 1,
+      height: 'auto',
+      transition: {
+        type: 'spring',
+        stiffness: 300,
+        damping: 24
+      }
+    },
+    closed: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 300,
+        damping: 24
+      }
+    }
+  };
 
-        <div className="navbar-nav ms-auto">
-          {navItems.map(({ path, label }) => (
-            <motion.div
-              key={path}
-              className="nav-item"
+  return (
+    <header className="header">
+      <div className="header-content">
+        <Link to="/" className="logo">
+          <motion.span
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            Portfolio
+          </motion.span>
+        </Link>
+
+        <button 
+          className="menu-toggle"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <AnimatePresence>
+          <motion.nav
+            className={`nav-links ${isMenuOpen ? 'open' : ''}`}
+            initial="closed"
+            animate={isMenuOpen ? 'open' : 'closed'}
+            variants={variants}
+          >
+            {menuItems.map((item) => (
+              <motion.div
+                key={item.path}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  to={item.path}
+                  className={location.pathname === item.path ? 'active' : ''}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              </motion.div>
+            ))}
+            <motion.button
+              className="theme-toggle"
+              onClick={toggleTheme}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <Link
-                to={path}
-                className={`nav-link ${location.pathname === path ? 'active' : ''}`}
-              >
-                {t(label)}
-              </Link>
-            </motion.div>
-          ))}
-          
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="btn btn-outline-primary ms-2"
-            onClick={toggleTheme}
-          >
-            {theme === 'light' ? '🌙' : '☀️'}
-          </motion.button>
-        </div>
-      </nav>
-    </motion.header>
+              {theme === 'dark' ? '🌙' : '☀️'}
+            </motion.button>
+          </motion.nav>
+        </AnimatePresence>
+      </div>
+    </header>
   );
 };
