@@ -92,7 +92,6 @@ export const Home: React.FC = () => {
               poster="/videos/demo_video-poster.jpg"
             >
               <source src="/videos/demo_video.mp4" type="video/mp4" />
-              <source src="/videos/demo_video.webm" type="video/webm" />
               <p>お使いのブラウザは動画の再生をサポートしていません。</p>
             </video>
           </div>
@@ -103,3 +102,4 @@ export const Home: React.FC = () => {
 };
 
 export default Home;
+
