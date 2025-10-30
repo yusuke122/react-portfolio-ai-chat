@@ -273,14 +273,7 @@
     color: #fca5a5; /* 明るい赤色 */
   }
 
-  .submit-button {
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    color: white;
-    
-    &:hover:not(:disabled) {
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-    }
-  }
+  // submit-buttonは常にダークテーマのデザインを維持（削除）
 }
 
 [data-theme='light'] .success-section,
