@@ -418,7 +418,7 @@ export const ChatInterface: React.FC = () => {
 
                 <div className="image-selector">
                   <div className="selector-header">
-                    <p>解析する画像を選択してください：</p>
+                    <p>解析する画像を選択してください</p>
                     <motion.button
                       onClick={handleImageAnalysis}
                       disabled={isAnalyzingImage || !selectedImageForAnalysis}
