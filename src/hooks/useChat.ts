@@ -6,6 +6,9 @@ interface Message {
   text: string;
   sender: 'user' | 'ai';
   timestamp: Date;
+  type?: 'text' | 'image_request' | 'image_response' | 'error';
+  imageUrl?: string;
+  imagePrompt?: string;
 }
 
 interface ChatState {

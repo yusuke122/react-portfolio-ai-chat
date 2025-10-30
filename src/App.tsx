@@ -5,7 +5,6 @@ import { ThemeProvider } from './hooks/useTheme';
 import { Header } from './components/Layout/Header';
 import Index from './pages/index';
 import AiChatPage from './pages/aiChat';
-import AiGenePage from './pages/aiGene';
 import ContactPage from './pages/contact';
 import './styles/custom.scss';
 
@@ -70,23 +69,6 @@ const App: React.FC = () => {
                     className="chat-page"
                   >
                     <AiChatPage />
-                  </motion.div>
-                </AnimatePresence>
-              }
-            />
-            <Route
-              path="/editor"
-              element={
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={location.pathname}
-                    variants={pageVariants}
-                    initial="initial"
-                    animate="enter"
-                    exit="exit"
-                    className="editor-page"
-                  >
-                    <AiGenePage />
                   </motion.div>
                 </AnimatePresence>
               }

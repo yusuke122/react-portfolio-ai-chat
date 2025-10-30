@@ -4,12 +4,14 @@ import './Avatar.scss';
 interface AvatarProps {
   mood?: 'happy' | 'thinking' | 'talking' | 'idle';
   size?: 'small' | 'medium' | 'large';
+  type?: 'creative' | 'technical' | 'casual';
   onClick?: () => void;
 }
 
 export const Avatar: React.FC<AvatarProps> = ({ 
   mood = 'idle', 
   size = 'medium',
+  type = 'creative',
   onClick 
 }) => {
   const avatarRef = useRef<HTMLDivElement>(null);
@@ -144,7 +146,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   return (
     <div 
       ref={avatarRef}
-      className={`avatar avatar--${size} avatar--${mood}`}
+      className={`avatar avatar--${size} avatar--${mood} avatar--${type}`}
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -154,25 +156,50 @@ export const Avatar: React.FC<AvatarProps> = ({
           <div ref={eyesRef} className="avatar__eyes">
             <div className="avatar__eye avatar__eye--left"></div>
             <div className="avatar__eye avatar__eye--right"></div>
+            {type === 'technical' && <div className="avatar__glasses"></div>}
           </div>
           <div ref={mouthRef} className={`avatar__mouth avatar__mouth--${mood}`}></div>
+          {type === 'creative' && <div className="avatar__beard"></div>}
         </div>
-        <div className="avatar__hair"></div>
+        <div className={`avatar__hair avatar__hair--${type}`}></div>
       </div>
       <div className="avatar__body">
-        <div className="avatar__torso"></div>
+        <div className={`avatar__torso avatar__torso--${type}`}></div>
         <div className="avatar__arms">
           <div className="avatar__arm avatar__arm--left"></div>
           <div className="avatar__arm avatar__arm--right"></div>
         </div>
+        {type === 'casual' && <div className="avatar__hoodie"></div>}
       </div>
       
       {/* パーティクルエフェクト */}
       {mood === 'happy' && (
         <div className="avatar__particles">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className={`avatar__particle avatar__particle--${i}`}></div>
+            <div key={i} className={`avatar__particle avatar__particle--${i} avatar__particle--${type}`}></div>
           ))}
+        </div>
+      )}
+
+      {/* アバター固有のアクセサリー */}
+      {type === 'creative' && (
+        <div className="avatar__accessories">
+          <div className="avatar__paint-brush"></div>
+          <div className="avatar__palette"></div>
+        </div>
+      )}
+      
+      {type === 'technical' && (
+        <div className="avatar__accessories">
+          <div className="avatar__laptop"></div>
+          <div className="avatar__code-lines"></div>
+        </div>
+      )}
+
+      {type === 'casual' && (
+        <div className="avatar__accessories">
+          <div className="avatar__headphones"></div>
+          <div className="avatar__coffee"></div>
         </div>
       )}
     </div>

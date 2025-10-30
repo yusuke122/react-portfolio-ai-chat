@@ -10,14 +10,24 @@ interface ChatMessageProps {
     id: string;
     text: string;
     sender: 'user' | 'ai';
+    timestamp: Date;
+    type?: 'text' | 'image_request' | 'image_response' | 'error';
     imageUrl?: string;
-    timestamp?: Date;
+    imagePrompt?: string;
   };
 }
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const { t } = useTranslation();
   const [isImageOpen, setIsImageOpen] = useState(false);
+
+  // デバッグ用ログ
+  console.log('ChatMessage rendered:', { 
+    id: message.id, 
+    type: message.type, 
+    imageUrl: message.imageUrl,
+    hasImage: !!message.imageUrl 
+  });
 
   const messageVariants = {
     hidden: { opacity: 0, y: 20, scale: 0.9 },
@@ -47,51 +57,55 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       >
         <p>{message.text}</p>
         {message.imageUrl && (
-          <Dialog.Root open={isImageOpen} onOpenChange={setIsImageOpen}>
-            <Dialog.Trigger asChild>
-              <motion.img 
-                src={message.imageUrl}
-                alt="Generated content"
-                className="message-image"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              />
-            </Dialog.Trigger>
-            <Dialog.Portal>
-              <Dialog.Overlay className="dialog-overlay" />
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="dialog-overlay-motion"
-              />
-              <Dialog.Content className="dialog-content">
+          <div className="image-container">
+            <Dialog.Root open={isImageOpen} onOpenChange={setIsImageOpen}>
+              <Dialog.Trigger asChild>
+                <motion.img 
+                  src={message.imageUrl}
+                  alt={message.imagePrompt || "Generated content"}
+                  className="message-image"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onLoad={() => console.log('Image loaded:', message.imageUrl)}
+                  onError={(e) => console.error('Image failed to load:', message.imageUrl, e)}
+                />
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <Dialog.Overlay className="dialog-overlay" />
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="dialog-content-motion"
-                >
-                  <motion.img 
-                    src={message.imageUrl}
-                    alt="Generated content"
-                    className="img-fluid"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                  />
-                  <motion.button
-                    className="close-button"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setIsImageOpen(false)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="dialog-overlay-motion"
+                />
+                <Dialog.Content className="dialog-content">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="dialog-content-motion"
                   >
-                    <span>×</span>
-                  </motion.button>
-                </motion.div>
-              </Dialog.Content>
-            </Dialog.Portal>
-          </Dialog.Root>
+                    <motion.img 
+                      src={message.imageUrl}
+                      alt="Generated content"
+                      className="img-fluid"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                    />
+                    <motion.button
+                      className="close-button"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setIsImageOpen(false)}
+                    >
+                      <span>×</span>
+                    </motion.button>
+                  </motion.div>
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
+          </div>
         )}
       </motion.div>
     </motion.div>

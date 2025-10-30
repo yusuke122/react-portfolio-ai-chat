@@ -5,11 +5,12 @@
 @import '../../styles/variables';
 
 .home-container {
-  min-height: calc(100vh - var(--header-height));
-  padding: 2rem;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
   
   @media (max-width: 768px) {
     padding: 1rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -17,7 +18,7 @@
   max-width: 1600px;
   margin: 0 auto;
   display: grid;
-  gap: 3rem;
+  gap: 2rem;
   align-items: flex-start;
   
   // PC Layout: 2カラム（左：タイトル+説明、右：機能カード）+ 動画（中央）
@@ -33,7 +34,7 @@
       "header"
       "features"
       "video";
-    gap: 2rem;
+    gap: 1.5rem;
   }
 }
 
@@ -73,7 +74,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3rem 0;
+  padding: 1rem 0;
+  
+  @media (min-width: 769px) {
+    padding: 0.5rem 0;
+  }
   
   // より強い背景ぼかし効果
   &::before {
@@ -136,11 +141,17 @@
 .video-container {
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  max-width: 800px;
   aspect-ratio: 16/9;
   border-radius: 0;
   overflow: hidden;
   background: var(--surface-color);
+  
+  // PCでファーストビューに収まるサイズ調整
+  @media (min-width: 769px) {
+    max-width: 700px;
+    max-height: 400px;
+  }
   
   // 大胆なぼかし効果とやわらかい影
   filter: blur(4px);
@@ -395,5 +406,19 @@
     @media (max-width: 768px) {
       font-size: 1rem;
     }
+  }
+}
+
+// =============================================================================
+// Light Theme Overrides
+// =============================================================================
+
+[data-theme='light'] .feature-card {
+  h4 {
+    color: #000000; /* 黒色 */
+  }
+  
+  &.clickable:hover h4 {
+    color: var(--accent-color);
   }
 }

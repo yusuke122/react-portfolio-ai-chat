@@ -27,7 +27,6 @@ export const Header: React.FC = () => {
   const menuItems = [
     { path: '/', label: t('nav.home') },
     { path: '/chat', label: t('nav.chat') },
-    { path: '/editor', label: t('nav.editor') },
     { path: '/contact', label: t('nav.contact') },
   ];
 

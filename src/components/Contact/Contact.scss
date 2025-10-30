@@ -10,7 +10,20 @@
   max-width: 1200px;
   margin:0 auto;
   margin-top: 10px;
+  padding: 0 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
+  
+  // Light mode adjustments
+  [data-theme="light"] & {
+    background: #525e93;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
   
   &:hover {
     box-shadow: 0 8px 12px var(--shadow-color);
@@ -25,9 +38,17 @@
 }
 
 .contact-section {
-  padding: 20px 50px;
+  padding: 30px 100px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  margin: 20px 0;
+
+  // Light mode adjustments
+  [data-theme="light"] & {
+   background: #5169d2;
+  }
 }
 
 .contact-title {
@@ -36,6 +57,11 @@
   color: var(--text-color);
   font-size: 1.75rem;
   font-weight: 700;
+  
+  // Light mode adjustments
+  [data-theme="light"] & {
+    color: #1f2937;
+  }
 }
 
 .contact-form {
@@ -122,6 +148,12 @@
   transition: transform 0.15s ease, box-shadow 0.2s ease;
   font-family: inherit;
   
+  // PC用マージン
+  @media (min-width: 769px) {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+  
   &:hover:not(:disabled) { 
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
@@ -201,25 +233,78 @@
 // =============================================================================
 
 [data-theme='light'] .contact-section {
-  background: #46598f; /* 暗い紺色 (blue-900) */
-  color: #e0f2fe; /* 薄い青色のテキスト (blue-100) */
+  background: rgba(255, 255, 255, 0.05); /* chat-headerと同じ背景 */
+  color: #f9fafb; /* 明るいテキスト */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* chat-headerと同じボーダー */
+  backdrop-filter: blur(10px); /* chat-headerと同じブラー効果 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   
   .contact-title {
-    color: #e0f2fe;
+    color: #ffffff; /* 白色 */
+    background: none;
+    -webkit-text-fill-color: unset;
   }
   
   label {
-    color: #bfdbfe; /* blue-200 */
+    color: #e5e7eb; /* グレー200 */
+    font-weight: 600;
   }
   
   .form-field input,
   .form-field textarea {
-    background: #a0aedc; /* blue-800 */
-    color: #f0f9ff; /* blue-50 */
-    border-color: #3b82f6; /* blue-500 */
+    background: rgba(255, 255, 255, 0.95); /* 明るい背景 */
+    color: #000000; /* 黒色テキスト */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    
+    &:focus {
+      border-color: #3b82f6;
+      box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.05),
+        0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
     
     &::placeholder {
-      color: #93c5fd; /* blue-300 */
+      color: #9ca3af; /* グレー400（灰色） */
     }
+  }
+
+  .error-text {
+    color: #fca5a5; /* 明るい赤色 */
+  }
+
+  .submit-button {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    
+    &:hover:not(:disabled) {
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+  }
+}
+
+[data-theme='light'] .success-section,
+[data-theme='light'] .error-section {
+  background: #1f2937;
+  color: #f9fafb;
+  border: 1px solid #374151;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  
+  .success-title,
+  .error-title {
+    color: #f9fafb;
+  }
+  
+  .success-message,
+  .error-message {
+    color: #e5e7eb;
+  }
+  
+  .success-icon {
+    color: #10b981; /* 緑色 */
+  }
+  
+  .error-icon {
+    color: #ef4444; /* 赤色 */
   }
 }

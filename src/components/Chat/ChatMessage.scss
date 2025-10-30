@@ -60,12 +60,19 @@
     }
   }
 
+  .image-container {
+    margin-top: 1rem;
+  }
+
   .message-image {
     max-width: 300px;
+    width: 100%;
+    height: auto;
     border-radius: 8px;
-    margin-top: 1rem;
     cursor: pointer;
     transition: transform 0.2s ease;
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 
     &:hover {
       transform: scale(1.02);
