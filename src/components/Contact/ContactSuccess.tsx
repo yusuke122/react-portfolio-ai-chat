@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import './Contact.scss';
 
 interface ContactSuccessProps {
@@ -7,6 +8,7 @@ interface ContactSuccessProps {
 }
 
 export const ContactSuccess: React.FC<ContactSuccessProps> = ({ onReset }) => {
+  const { t } = useTranslation();
   return (
     <div className="contact-grid">
       <div className="success-section">
@@ -25,7 +27,7 @@ export const ContactSuccess: React.FC<ContactSuccessProps> = ({ onReset }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          送信完了
+          {t('pages.contact.success')}
         </motion.h1>
         
         <motion.p 
@@ -34,9 +36,7 @@ export const ContactSuccess: React.FC<ContactSuccessProps> = ({ onReset }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          お問い合わせありがとうございます。
-          <br />
-          送信いただいた内容を確認し、追ってご連絡いたします。
+          {t('pages.contact.successMessage')}
         </motion.p>
         
         <motion.button 
@@ -46,7 +46,7 @@ export const ContactSuccess: React.FC<ContactSuccessProps> = ({ onReset }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          新しいお問い合わせ
+          {t('pages.contact.backToForm')}
         </motion.button>
       </div>
     </div>

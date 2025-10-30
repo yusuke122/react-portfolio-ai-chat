@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import './Contact.scss';
 
 interface ContactFormData {
@@ -16,6 +17,7 @@ interface ContactFormProps {
 }
 
 export const ContactForm: React.FC<ContactFormProps> = ({ onSuccess, onError }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<ContactFormData>({
     firstName: '',
     lastName: '',
@@ -31,25 +33,25 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSuccess, onError }) 
     const newErrors: Partial<ContactFormData> = {};
     
     if (!formData.firstName.trim()) {
-      newErrors.firstName = '名前を入力してください';
+      newErrors.firstName = t('pages.contact.errors.firstNameRequired');
     }
     
     if (!formData.lastName.trim()) {
-      newErrors.lastName = '姓を入力してください';
+      newErrors.lastName = t('pages.contact.errors.lastNameRequired');
     }
     
     if (!formData.email.trim()) {
-      newErrors.email = 'メールアドレスを入力してください';
+      newErrors.email = t('pages.contact.errors.emailRequired');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = '有効なメールアドレスを入力してください';
+      newErrors.email = t('pages.contact.errors.emailInvalid');
     }
     
     if (!formData.subject.trim()) {
-      newErrors.subject = '件名を入力してください';
+      newErrors.subject = t('pages.contact.errors.subjectRequired');
     }
     
     if (!formData.message.trim()) {
-      newErrors.message = 'メッセージを入力してください';
+      newErrors.message = t('pages.contact.errors.messageRequired');
     }
     
     setErrors(newErrors);
@@ -106,7 +108,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSuccess, onError }) 
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          お問い合わせ
+          {t('pages.contact.title')}
         </motion.h1>
         
         <motion.form 
@@ -118,45 +120,44 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSuccess, onError }) 
         >
           <div className="name-row">
             <div className="form-field">
-              <label htmlFor="firstName">名前 *</label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleInputChange}
-                placeholder="山田"
-              />
-              <div className="error-text-container">
-                {errors.firstName && <p className="error-text">{errors.firstName}</p>}
-              </div>
-            </div>
-            
-            <div className="form-field">
-              <label htmlFor="lastName">姓 *</label>
+              <label htmlFor="lastName">{t('pages.contact.lastName')} *</label>
               <input
                 type="text"
                 id="lastName"
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleInputChange}
-                placeholder="太郎"
+                placeholder={t('pages.contact.placeholders.lastName')}
               />
               <div className="error-text-container">
                 {errors.lastName && <p className="error-text">{errors.lastName}</p>}
               </div>
             </div>
+            <div className="form-field">
+              <label htmlFor="firstName">{t('pages.contact.firstName')} *</label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                placeholder={t('pages.contact.placeholders.firstName')}
+              />
+              <div className="error-text-container">
+                {errors.firstName && <p className="error-text">{errors.firstName}</p>}
+              </div>
+            </div>
           </div>
           
           <div className="form-field">
-            <label htmlFor="email">メールアドレス *</label>
+            <label htmlFor="email">{t('pages.contact.email')} *</label>
             <input
               type="email"
               id="email"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              placeholder="yamada@example.com"
+              placeholder={t('pages.contact.placeholders.email')}
             />
             <div className="error-text-container">
               {errors.email && <p className="error-text">{errors.email}</p>}
@@ -164,14 +165,14 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSuccess, onError }) 
           </div>
           
           <div className="form-field">
-            <label htmlFor="subject">件名 *</label>
+            <label htmlFor="subject">{t('pages.contact.subject')} *</label>
             <input
               type="text"
               id="subject"
               name="subject"
               value={formData.subject}
               onChange={handleInputChange}
-              placeholder="お問い合わせの件名"
+              placeholder={t('pages.contact.placeholders.subject')}
             />
             <div className="error-text-container">
               {errors.subject && <p className="error-text">{errors.subject}</p>}
@@ -179,13 +180,13 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSuccess, onError }) 
           </div>
           
           <div className="form-field">
-            <label htmlFor="message">メッセージ *</label>
+            <label htmlFor="message">{t('pages.contact.message')} *</label>
             <textarea
               id="message"
               name="message"
               value={formData.message}
               onChange={handleInputChange}
-              placeholder="お問い合わせ内容をこちらにご記入ください"
+              placeholder={t('pages.contact.placeholders.message')}
             />
             <div className="error-text-container">
               {errors.message && <p className="error-text">{errors.message}</p>}
@@ -194,10 +195,10 @@ export const ContactForm: React.FC<ContactFormProps> = ({ onSuccess, onError }) 
           
           <button 
             type="submit" 
-            className="submit-button" 
+            className="submit-button neon-glow" 
             disabled={isSubmitting}
           >
-            {isSubmitting ? '送信中...' : '送信'}
+            {isSubmitting ? t('pages.contact.sending') : t('pages.contact.send')}
           </button>
         </motion.form>
       </div>

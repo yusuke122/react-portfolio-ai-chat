@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import './Contact.scss';
 
 interface ContactErrorProps {
@@ -8,6 +9,7 @@ interface ContactErrorProps {
 }
 
 export const ContactError: React.FC<ContactErrorProps> = ({ onRetry, onReset }) => {
+  const { t } = useTranslation();
   return (
     <div className="contact-grid">
       <div className="error-section">
@@ -26,7 +28,7 @@ export const ContactError: React.FC<ContactErrorProps> = ({ onRetry, onReset }) 
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          送信エラー
+          {t('pages.contact.error')}
         </motion.h1>
         
         <motion.p 
@@ -35,9 +37,7 @@ export const ContactError: React.FC<ContactErrorProps> = ({ onRetry, onReset }) 
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          メール送信に失敗しました。
-          <br />
-          ネットワーク接続を確認して、再度お試しください。
+          {t('pages.contact.errorMessage')}
         </motion.p>
         
         <motion.div 
@@ -47,10 +47,10 @@ export const ContactError: React.FC<ContactErrorProps> = ({ onRetry, onReset }) 
           transition={{ duration: 0.6, delay: 0.6 }}
         >
           <button className="submit-button" onClick={onRetry}>
-            再試行
+            {t('pages.contact.retry')}
           </button>
           <button className="submit-button secondary" onClick={onReset}>
-            フォームをリセット
+            {t('pages.contact.backToForm')}
           </button>
         </motion.div>
       </div>

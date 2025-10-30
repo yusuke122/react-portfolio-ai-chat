@@ -4,16 +4,23 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm:dev:api\" \"vite\"",
+    "dev": "concurrently \"npm:dev:api\" \"npm:dev:ssr\"",
+    "dev:spa": "concurrently \"npm:dev:api\" \"vite\"",
     "dev:api": "node server/dev-api.mjs",
-    "dev:vercel": "concurrently \"npx vercel dev\" \"vite\"",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev:ssr": "node server/ssr-dev.js",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --outDir dist/server --ssr src/entry-server.tsx",
+    "build:legacy": "tsc && vite build",
+    "preview": "npm run serve:ssr",
+    "preview:spa": "vite preview",
+    "serve:ssr": "node server/ssr-prod.js",
+    "start": "npm run serve:ssr"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-switch": "^1.0.3",
-    "@hookform/resolvers": "^3.3.4",
     "@react-email/components": "0.0.25",
     "@react-email/render": "1.0.1",
     "@vercel/node": "^3.0.21",
@@ -30,13 +37,16 @@
     "zustand": "^4.4.4"
   },
   "devDependencies": {
+    "@types/express": "^4.17.25",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
+    "compression": "^1.8.1",
     "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "sass": "^1.93.2",
+    "sirv": "^2.0.4",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }

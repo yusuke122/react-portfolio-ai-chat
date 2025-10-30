@@ -31,4 +31,16 @@ export default defineConfig({
     },
   },
   base: './', // 相対パスでアセットを読み込む
+  build: {
+    manifest: true,
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html')
+      }
+    }
+  },
+  ssr: {
+    // SSR用の外部モジュール設定
+    noExternal: ['react-router-dom', 'framer-motion']
+  }
 });

@@ -1,12 +1,11 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useChatStore } from '../../hooks/useChat';
 import { ChatMessage } from './ChatMessage';
 import { Avatar } from '../Character/Avatar';
-import { useEditorStore } from '@/hooks/useEditor';
 import { useAIService } from '../../hooks/useAIService';
-import { InteractiveCanvas } from '../Interactive/InteractiveCanvas';
+import { debugEnvVars } from '../../utils/debugEnv';
 import './ChatInterface.scss';
 
 interface AIPromptOption {
@@ -23,7 +22,6 @@ export const ChatInterface: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [avatarMood, setAvatarMood] = useState<'idle' | 'thinking' | 'talking' | 'happy'>('idle');
   const [activeTab, setActiveTab] = useState<'generate' | 'text' | 'analyze'>('generate');
-  const { mode, setMode, images } = useEditorStore();
   const { 
     generateImage, 
     generateText, 
@@ -41,24 +39,43 @@ export const ChatInterface: React.FC = () => {
   const [imageAnalysis, setImageAnalysis] = useState('');
   const [selectedAvatarId, setSelectedAvatarId] = useState<string>('creative');
 
+  // Debug environment variables on component mount
+  useEffect(() => {
+    console.log('🎯 ChatInterface mounted, checking environment...');
+    debugEnvVars();
+  }, []);
+
+  // Debug imageAnalysis state changes
+  useEffect(() => {
+    console.log('[ChatInterface] imageAnalysis state changed:', imageAnalysis);
+    console.log('[ChatInterface] imageAnalysis length:', imageAnalysis.length);
+    console.log('[ChatInterface] imageAnalysis empty?', !imageAnalysis);
+  }, [imageAnalysis]);
+
   const avatarOptions: AIPromptOption[] = [
     {
       id: 'creative',
-      label: 'クリエイティブ',
-      prompt: '創造的で芸術的な内容を生成してください',
+      label: t('pages.chat.avatars.creative'),
+      prompt: t('pages.chat.avatarPrompts.creative'),
       systemMessage: 'creative artistic innovative'
     },
     {
       id: 'technical',
-      label: 'テクニカル',
-      prompt: '技術的で詳細な説明を生成してください',
+      label: t('pages.chat.avatars.technical'),
+      prompt: t('pages.chat.avatarPrompts.technical'),
       systemMessage: 'technical detailed precise'
     },
     {
       id: 'casual',
-      label: 'カジュアル',
-      prompt: 'フレンドリーで親しみやすい内容を生成してください',
+      label: t('pages.chat.avatars.casual'),
+      prompt: t('pages.chat.avatarPrompts.casual'),
       systemMessage: 'friendly casual approachable'
+    },
+    {
+      id: 'professional',
+      label: t('pages.chat.avatars.professional'),
+      prompt: t('pages.chat.avatarPrompts.professional'),
+      systemMessage: 'professional polite formal'
     }
   ];
 
@@ -90,7 +107,7 @@ export const ChatInterface: React.FC = () => {
     
     // ユーザーメッセージを追加
     addMessage({
-      text: `${currentAvatar.label}アバターでの生成: ${imagePrompt}`,
+      text: `${t(`pages.chat.avatars.${currentAvatar.id}`)}${t('pages.chat.messages.avatarGeneration')}: ${imagePrompt}`,
       sender: 'user',
       type: 'image_request'
     });
@@ -101,7 +118,7 @@ export const ChatInterface: React.FC = () => {
     try {
       const result = await generateImage({
         prompt: enhancedPrompt,
-        size: '512x512',
+        size: '256x256',
         quality: 'standard'
       });
       
@@ -109,7 +126,7 @@ export const ChatInterface: React.FC = () => {
       
       // 生成が完了したら直接結果を使用
       addMessage({
-        text: `${currentAvatar.label}アバターが画像を生成しました: "${imagePrompt}"`,
+        text: `${t(`pages.chat.avatars.${currentAvatar.id}`)}${t('pages.chat.analysis.avatarGenerated')}: "${imagePrompt}"`,
         sender: 'ai',
         type: 'image_response',
         imageUrl: result.url,
@@ -123,8 +140,21 @@ export const ChatInterface: React.FC = () => {
       setTimeout(() => setAvatarMood('idle'), 2000);
     } catch (error) {
       console.error('Image generation failed:', error);
+      
+      let errorMessage = t('pages.chat.status.error');
+      
+      if (error instanceof Error) {
+        if (error.message.includes('No image generation service configured')) {
+          errorMessage = t('pages.chat.status.error');
+        } else if (error.message.includes('Model is loading')) {
+          errorMessage = t('pages.chat.status.generating');
+        } else if (error.message.includes('API token not configured')) {
+          errorMessage = t('pages.chat.status.error');
+        }
+      }
+      
       addMessage({
-        text: '画像生成に失敗しました。もう一度お試しください。',
+        text: errorMessage,
         sender: 'ai',
         type: 'error'
       });
@@ -155,12 +185,34 @@ export const ChatInterface: React.FC = () => {
     const currentAvatar = getCurrentAvatar();
     setAvatarMood('thinking');
     try {
+      console.log('[ChatInterface] Starting image analysis for avatar:', currentAvatar.id);
       const result = await analyzeImage(selectedImageForAnalysis);
-      setImageAnalysis(`${currentAvatar.label}アバターの分析: ${result}`);
+      console.log('[ChatInterface] Analysis result received:', result);
+      console.log('[ChatInterface] Result type:', typeof result);
+      console.log('[ChatInterface] Result length:', result?.length || 0);
+      
+      const analysisMessage = `${t(`pages.chat.avatars.${currentAvatar.id}`)}${t('pages.chat.messages.avatarAnalysis')}: ${result}`;
+      console.log('[ChatInterface] Final analysis message:', analysisMessage);
+      
+      setImageAnalysis(analysisMessage);
       setAvatarMood('talking');
       setTimeout(() => setAvatarMood('idle'), 3000);
     } catch (error) {
-      console.error('Image analysis failed:', error);
+      console.error('[ChatInterface] Image analysis failed:', error);
+      
+      let errorMessage = t('pages.chat.status.error');
+      
+      if (error instanceof Error) {
+        if (error.message.includes('No image analysis service configured')) {
+          errorMessage = t('pages.chat.status.error');
+        } else if (error.message.includes('Image analysis model is loading')) {
+          errorMessage = t('pages.chat.status.error');
+        } else if (error.message.includes('API token not configured')) {
+          errorMessage = t('pages.chat.status.error');
+        }
+      }
+      
+      setImageAnalysis(`❌ ${errorMessage}`);
       setAvatarMood('idle');
     }
   };
@@ -173,22 +225,16 @@ export const ChatInterface: React.FC = () => {
     setAvatarMood('thinking');
     await new Promise(resolve => setTimeout(resolve, 1500));
     
-    const responses = [
-      "そうですね、その考えは興味深いですね。もう少し詳しく教えていただけますか？",
-      "なるほど、確かにその視点は重要ですね。私からは以下の提案もさせていただきたいと思います...",
-      "その考えについて、別の角度からも見てみましょう。例えば...",
-      "ご指摘ありがとうございます。その点については、さらに掘り下げて考えてみる必要がありそうですね。",
-      "とても良い質問ですね。これについて、以下のような観点から考えてみましょう..."
-    ];
+    const responses = t('pages.chat.messages.responses.generic', { returnObjects: true }) as string[];
     
     if (text.toLowerCase().includes('hello') || text.toLowerCase().includes('hi')) {
       setAvatarMood('happy');
-      return "こんにちは！お手伝いできることはありますか？";
+      return t('pages.chat.messages.responses.hello');
     }
     
     if (text.includes('?') || text.includes('？')) {
       setAvatarMood('talking');
-      return "良い質問ですね。" + responses[Math.floor(Math.random() * 3)];
+      return t('pages.chat.messages.responses.question') + responses[Math.floor(Math.random() * 3)];
     }
     
     setAvatarMood('talking');
@@ -274,7 +320,7 @@ export const ChatInterface: React.FC = () => {
             whileTap={{ scale: 0.9 }}
           >
             <span className="arrow">＜</span>
-            <span className="nav-text">前のアバター</span>
+            <span className="nav-text">{t('pages.chat.previousAvatar')}</span>
           </motion.button>
           
           <div className="avatar-center">
@@ -305,14 +351,14 @@ export const ChatInterface: React.FC = () => {
             whileTap={{ scale: 0.9 }}
           >
             <span className="arrow">＞</span>
-            <span className="nav-text">次のアバター</span>
+            <span className="nav-text">{t('pages.chat.nextAvatar')}</span>
           </motion.button>
         </div>
         
         <div className="chat-status">
           <h3>AI Assistant</h3>
           <p className={`status-indicator ${isLoading ? 'thinking' : 'idle'}`}>
-            {isLoading ? 'Thinking...' : 'Ready to help'}
+            {isLoading ? t('pages.chat.thinking') : 'Ready to help'}
           </p>
         </div>
       </motion.div>
@@ -325,8 +371,8 @@ export const ChatInterface: React.FC = () => {
         transition={{ delay: 0.2, duration: 0.5 }}
       >
         {[
-          { id: 'generate', label: '🎨 画像生成', icon: '🎨' },
-          { id: 'analyze', label: '🔍 画像解析', icon: '🔍' }
+          { id: 'generate', label: t('pages.chat.imageGeneration'), icon: '🎨' },
+          { id: 'analyze', label: t('pages.chat.imageAnalysis'), icon: '🔍' }
         ].map((tab) => (
           <motion.button
             key={tab.id}
@@ -361,11 +407,11 @@ export const ChatInterface: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               <div className="generation-section">
-                <h3>🎨 AI画像生成</h3>
+                <h3>🎨 {t('pages.chat.sections.imageGeneration')}</h3>
                 <div className="input-group">
                   <input
                     type="text"
-                    placeholder="生成したい画像の説明を入力してください..."
+                    placeholder={t('pages.chat.prompts.imagePlaceholder')}
                     value={imagePrompt}
                     onChange={(e) => setImagePrompt(e.target.value)}
                     className="chat-input glass-card"
@@ -381,9 +427,9 @@ export const ChatInterface: React.FC = () => {
                     transition={{ duration: 0.2 }}
                   >
                     {isGeneratingImage ? (
-                      <span>🎨 生成中...</span>
+                      <span>🎨 {t('pages.chat.status.imageGenerating')}</span>
                     ) : (
-                      <span>🎨 生成</span>
+                      <span>🎨 {t('pages.chat.generateImage')}</span>
                     )}
                   </motion.button>
                 </div>
@@ -401,24 +447,27 @@ export const ChatInterface: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               <div className="analysis-section">
-                <h3>🔍 AI画像解析</h3>
-                <p className="debug-info">生成された画像数: {generatedImages.length}</p>
+                <h3>🔍 {t('pages.chat.analysis.title')}</h3>
+                <p className="debug-info">{t('pages.chat.analysis.generatedImages')}: {generatedImages.length}</p>
 
+                {/* DEBUG: Checking if imageAnalysis should render: ${!!imageAnalysis}, value: ${imageAnalysis} */}
                 {imageAnalysis && (
-                  <motion.div
-                    className="analysis-result glass-card"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <h4>解析結果：</h4>
-                    <p>{imageAnalysis}</p>
-                  </motion.div>
+                  <>
+                    <motion.div
+                      className="analysis-result glass-card"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <h4>{t('pages.chat.analysis.resultTitle')}：</h4>
+                      <p className="analysis-result">{imageAnalysis}</p>
+                    </motion.div>
+                  </>
                 )}
 
                 <div className="image-selector">
                   <div className="selector-header">
-                    <p>解析する画像を選択してください</p>
+                    <p>{t('pages.chat.analysis.selectImage')}</p>
                     <motion.button
                       onClick={handleImageAnalysis}
                       disabled={isAnalyzingImage || !selectedImageForAnalysis}
@@ -428,9 +477,9 @@ export const ChatInterface: React.FC = () => {
                       transition={{ duration: 0.2 }}
                     >
                       {isAnalyzingImage ? (
-                        <span>🔍 解析中...</span>
+                        <span>🔍 {t('pages.chat.status.analyzing')}</span>
                       ) : (
-                        <span>🔍 解析開始</span>
+                        <span>🔍 {t('pages.chat.analyzeImage')}</span>
                       )}
                     </motion.button>
                   </div>
@@ -449,7 +498,7 @@ export const ChatInterface: React.FC = () => {
                       ))
                     ) : (
                       <div className="no-images-message">
-                        <p>🎨 画像生成タブで画像を生成してから解析を行ってください</p>
+                        <p>{t('pages.chat.analysis.noGeneratedImages')}</p>
                       </div>
                     )}
                   </div>

@@ -65,15 +65,15 @@ export const Home: React.FC = () => {
               className="feature-card clickable"
               onClick={() => handleCardClick('/chat')}
             >
-              <h4>⚡ AIチャット</h4>
-              <p>AIとチャットで簡単に画像作成</p>
+              <h4>⚡ {t('pages.home.cards.aiChat.title')}</h4>
+              <p>{t('pages.home.cards.aiChat.description')}</p>
             </div>
             <div 
               className="feature-card clickable"
               onClick={() => handleCardClick('/contact')}
             >
-              <h4>📧 お問い合わせ</h4>
-              <p>フィードバックやご要望はこちら</p>
+              <h4>📧 {t('pages.home.cards.contact.title')}</h4>
+              <p>{t('pages.home.cards.contact.description')}</p>
             </div>
           </div>
         </motion.div>
@@ -91,7 +91,6 @@ export const Home: React.FC = () => {
               playsInline
             >
               <source src="/videos/demo_video.mp4" type="video/mp4" />
-              <p>お使いのブラウザは動画の再生をサポートしていません。</p>
             </video>
           </div>
         </motion.div>

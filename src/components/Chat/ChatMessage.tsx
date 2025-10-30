@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Dialog from '@radix-ui/react-dialog';
 import { motion } from 'framer-motion';
-import { useChatStore } from '../../hooks/useChat';
 import './ChatMessage.scss';
 
 interface ChatMessageProps {

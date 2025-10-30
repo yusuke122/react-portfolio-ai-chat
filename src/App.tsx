@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from './hooks/useTheme';
@@ -10,27 +10,33 @@ import './styles/custom.scss';
 
 const App: React.FC = () => {
   const location = useLocation();
+  const [isClient, setIsClient] = useState(false);
+
+  // SSR時はアニメーションを無効化
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const pageVariants = {
     initial: {
-      opacity: 0,
-      x: -200
+      opacity: isClient ? 0 : 1,
+      x: isClient ? -200 : 0
     },
     enter: {
       opacity: 1,
       x: 0,
-      transition: {
+      transition: isClient ? {
         type: "spring",
         stiffness: 300,
         damping: 30
-      }
+      } : { duration: 0 }
     },
     exit: {
-      opacity: 0,
-      x: 200,
-      transition: {
+      opacity: isClient ? 0 : 1,
+      x: isClient ? 200 : 0,
+      transition: isClient ? {
         duration: 0.3
-      }
+      } : { duration: 0 }
     }
   };
 

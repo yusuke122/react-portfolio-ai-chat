@@ -7,7 +7,7 @@ import { Html, Head, Body, Container, Heading, Text, Hr } from '@react-email/com
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Email template component
-const ContactEmail = ({ lastName, firstName, email, message }: any) => (
+const ContactEmail = ({ lastName, firstName,  subject, email, message }: any) => (
   React.createElement(Html, null,
     React.createElement(Head, null),
     React.createElement(Body, { style: { backgroundColor: '#f6f9fc', fontFamily: 'Arial, sans-serif' } },
@@ -17,6 +17,7 @@ const ContactEmail = ({ lastName, firstName, email, message }: any) => (
         React.createElement(Hr, null),
         React.createElement(Text, null, React.createElement('strong', null, 'お名前: '), lastName, ' ', firstName),
         React.createElement(Text, null, React.createElement('strong', null, 'メールアドレス: '), email),
+        React.createElement(Text, null, React.createElement('strong', null, '件名: '), subject),
         React.createElement(Text, null, React.createElement('strong', null, 'お問い合わせ内容:')),
         React.createElement(Text, { style: { whiteSpace: 'pre-wrap' } }, message),
         React.createElement(Hr, null),
@@ -45,19 +46,18 @@ export default async function handler(
   }
 
   try {
-    const { lastName, firstName, email, message } = req.body || {};
-    
-    if (!lastName || !firstName || !email || !message) {
+    const { lastName, firstName, email, subject, message } = req.body || {};
+
+    if (!lastName || !firstName || !email || !subject || !message) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const subject = 'お問い合わせありがとうございます';
-    const html = await render(React.createElement(ContactEmail, { lastName, firstName, email, message }));
+    const html = await render(React.createElement(ContactEmail, { lastName, firstName, email, subject, message }));
 
     const result = await resend.emails.send({
       from: 'AI Chat Portfolio <onboarding@resend.dev>',
       to: email,
-      subject,
+      subject:'お問い合わせありがとうございます。',
       html,
     });
 
