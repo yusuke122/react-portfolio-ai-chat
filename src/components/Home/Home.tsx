@@ -89,7 +89,6 @@ export const Home: React.FC = () => {
               loop
               muted
               playsInline
-              poster="/videos/demo_video-poster.jpg"
             >
               <source src="/videos/demo_video.mp4" type="video/mp4" />
               <p>お使いのブラウザは動画の再生をサポートしていません。</p>
@@ -102,4 +101,5 @@ export const Home: React.FC = () => {
 };
 
 export default Home;
+
 
