@@ -89,10 +89,10 @@ export const Home: React.FC = () => {
               loop
               muted
               playsInline
-              poster="/videos/editor-demo-poster.jpg"
+              poster="/videos/demo_video-poster.jpg"
             >
-              <source src="/videos/editor-demo.mp4" type="video/mp4" />
-              <source src="/videos/editor-demo.webm" type="video/webm" />
+              <source src="/videos/demo_video.mp4" type="video/mp4" />
+              <source src="/videos/demo_video.webm" type="video/webm" />
               <p>お使いのブラウザは動画の再生をサポートしていません。</p>
             </video>
           </div>
