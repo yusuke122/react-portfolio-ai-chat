@@ -34,7 +34,7 @@ interface AIPromptOption {
 }
 
 export const ChatInterface: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { messages, addMessage } = useChatStore();
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -59,6 +59,27 @@ export const ChatInterface: React.FC = () => {
 
   // Mobile detection hook
   const isMobile = useIsMobile();
+
+  // Function to format text with mobile line breaks
+  const formatMobileText = (text: string, breakAfter?: string) => {
+    if (!isMobile) return text;
+    
+    const currentLanguage = i18n.language;
+    
+    if (currentLanguage === 'ja') {
+      // Japanese: break after 'の'
+      return text.replace('の', 'の\n');
+    } else if (currentLanguage === 'en') {
+      // English: break after specified word or default behavior
+      if (breakAfter) {
+        return text.replace(breakAfter, `${breakAfter}\n`);
+      }
+      // For avatar buttons, break after first word (Previous/Next)
+      return text.replace(' ', '\n');
+    }
+    
+    return text;
+  };
 
   // Debug environment variables on component mount
   useEffect(() => {
@@ -342,7 +363,7 @@ export const ChatInterface: React.FC = () => {
           >
             <span className="arrow">＜</span>
             <span className="nav-text">
-              {isMobile ? t('pages.chat.previousAvatar').replace(' ', '\n') : t('pages.chat.previousAvatar')}
+              {formatMobileText(t('pages.chat.previousAvatar'))}
             </span>
           </motion.button>
           
@@ -375,7 +396,7 @@ export const ChatInterface: React.FC = () => {
           >
             <span className="arrow">＞</span>
             <span className="nav-text">
-              {isMobile ? t('pages.chat.nextAvatar').replace(' ', '\n') : t('pages.chat.nextAvatar')}
+              {formatMobileText(t('pages.chat.nextAvatar'))}
             </span>
           </motion.button>
         </div>
@@ -454,7 +475,7 @@ export const ChatInterface: React.FC = () => {
                     {isGeneratingImage ? (
                       <span>🎨 {t('pages.chat.status.imageGenerating')}</span>
                     ) : (
-                      <span>🎨 {t('pages.chat.generateImage')}</span>
+                      <span>🎨 {formatMobileText(t('pages.chat.generateImage'), 'Generate')}</span>
                     )}
                   </motion.button>
                 </div>

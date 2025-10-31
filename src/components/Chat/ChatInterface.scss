@@ -327,6 +327,18 @@ body {
           margin: 0 auto;
           width: calc(100% - 170px); // 200px - 30px = 170px（左右15pxずつ拡張）
           max-width: 330px; // 300px + 30px = 330px
+          white-space: pre-line; // モバイルで改行を有効にする
+          justify-content: flex-start; // 左寄せベース
+          gap: 0.5rem; // アイコンとテキスト間のスペース
+          line-height: 1.2; // 行間を調整
+          font-size: 1rem; // フォントサイズを明示的に設定
+          
+          // テキスト部分のスタイル
+          span {
+            flex: 1;
+            text-align: center; // テキスト部分は中央寄せ
+            white-space: pre-line;
+          }
         }
 
         &:hover:not(:disabled) {
@@ -543,13 +555,24 @@ body {
 
         .send-button {
           padding: 0.9rem 1.25rem;
-          justify-content: center;
+          justify-content: flex-start; // 左寄せベース
           background: linear-gradient(135deg, #667eea, #00f5ff) !important;
           color: white !important;
           border-radius: 12px;
           margin: 0 auto;
           width: calc(100% - 200px);
           max-width: 300px;
+          white-space: pre-line; // モバイルで改行を有効にする
+          gap: 0.5rem; // アイコンとテキスト間のスペース
+          line-height: 1.2; // 行間を調整
+          font-size: 1rem; // フォントサイズを明示的に設定
+          
+          // テキスト部分のスタイル
+          span {
+            flex: 1;
+            text-align: center; // テキスト部分は中央寄せ
+            white-space: pre-line;
+          }
         }
       }
     }
@@ -569,7 +592,18 @@ body {
             color: white !important;
             border-radius: 12px;
             padding: 0.9rem 1.25rem;
-            justify-content: center;
+            justify-content: flex-start; // 左寄せベース
+            white-space: pre-line; // モバイルで改行を有効にする
+            gap: 0.5rem; // アイコンとテキスト間のスペース
+            line-height: 1.2; // 行間を調整
+            font-size: 1rem; // フォントサイズを明示的に設定
+            
+            // テキスト部分のスタイル
+            span {
+              flex: 1;
+              text-align: center; // テキスト部分は中央寄せ
+              white-space: pre-line;
+            }
           }
         }
 

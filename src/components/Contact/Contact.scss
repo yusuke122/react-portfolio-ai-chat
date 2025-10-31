@@ -49,16 +49,6 @@
   [data-theme="light"] & {
    background: #5169d2;
   }
-  
-  // Mobile responsiveness
-  @media (max-width: 768px) {
-    padding: 20px 10px;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 15px 10px;
-    margin: 10px 0;
-  }
 }
 
 .contact-title {
@@ -113,13 +103,10 @@
     color: var(--text);
     font-family: inherit;
     font-size: 1rem;
-    box-sizing: border-box; /* Ensure full width calculation includes padding and border */
     
     @media (max-width: 480px) {
       padding: 0.625rem 0.75rem;
       font-size: 16px; /* Prevent zoom on iOS */
-      width: 100%;
-      max-width: 100%;
     }
     
     &:focus {
@@ -165,12 +152,6 @@
   @media (min-width: 769px) {
     margin-left: 100px;
     margin-right: 100px;
-  }
-  
-  // Mobile full width
-  @media (max-width: 768px) {
-    width: 100%;
-    margin: 0 auto;
   }
   
   &:hover:not(:disabled) { 
