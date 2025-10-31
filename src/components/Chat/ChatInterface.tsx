@@ -467,7 +467,7 @@ export const ChatInterface: React.FC = () => {
                     type="submit"
                     onClick={handleImageGeneration}
                     disabled={isGeneratingImage || !imagePrompt.trim()}
-                    className={`send-button neon-glow ${isGeneratingImage ? 'generating' : ''}`}
+                    className={`send-button neon-glow ${isGeneratingImage ? 'generating' : ''} ${isMobile && i18n.language === 'ja' ? 'japanese-mobile' : ''}`}
                     whileHover={!isGeneratingImage ? { scale: 1.05 } : {}}
                     whileTap={!isGeneratingImage ? { scale: 0.95 } : {}}
                     transition={{ duration: 0.2 }}
