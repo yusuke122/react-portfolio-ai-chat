@@ -111,7 +111,9 @@ vercel --prod
 - SCSS + RadixUI + Bootstrap
 - Framer Motion
 - React Hook Form + Zod
-- Resend (サーバーレス関数)
+- Resend API
+- Hugging Face API
+- Google Cloud Vision API
 - Custom hooks for reusable logic
 - Modular structure for components and pages
 - CSS for styling
@@ -120,4 +122,5 @@ vercel --prod
 
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or features you'd like to add.
+
 
