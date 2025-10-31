@@ -340,6 +340,19 @@ body {
             white-space: pre-line;
           }
         }
+        
+        // 日本語版SP時の特別スタイル（50%幅、改行なし）
+        &.japanese-mobile {
+          @media (max-width: 768px) {
+            width: 50% !important;
+            max-width: 50% !important;
+            white-space: nowrap !important; // 改行禁止
+            
+            span {
+              white-space: nowrap !important; // テキストも改行禁止
+            }
+          }
+        }
 
         &:hover:not(:disabled) {
           transform: translateY(-1px);
@@ -573,6 +586,17 @@ body {
             text-align: center; // テキスト部分は中央寄せ
             white-space: pre-line;
           }
+          
+          // 日本語版SP時の特別スタイル（50%幅、改行なし）
+          &.japanese-mobile {
+            width: 50% !important;
+            max-width: 50% !important;
+            white-space: nowrap !important; // 改行禁止
+            
+            span {
+              white-space: nowrap !important; // テキストも改行禁止
+            }
+          }
         }
       }
     }
@@ -603,6 +627,17 @@ body {
               flex: 1;
               text-align: center; // テキスト部分は中央寄せ
               white-space: pre-line;
+            }
+            
+            // 日本語版SP時の特別スタイル（50%幅、改行なし）
+            &.japanese-mobile {
+              width: 50% !important;
+              max-width: 50% !important;
+              white-space: nowrap !important; // 改行禁止
+              
+              span {
+                white-space: nowrap !important; // テキストも改行禁止
+              }
             }
           }
         }
