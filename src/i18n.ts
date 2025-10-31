@@ -86,7 +86,7 @@ const resourcesJa = {
           imageAnalysis: 'AI画像解析'
         },
         avatars: {
-          creative: 'クリエイティブ',
+          creative: 'クリエイター',
           technical: 'テクニカル',
           casual: 'カジュアル',
           professional: 'プロ'
@@ -398,3 +398,4 @@ i18n
 
 
 export default i18n;
+
