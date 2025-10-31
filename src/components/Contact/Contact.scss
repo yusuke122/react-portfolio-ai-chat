@@ -62,13 +62,15 @@
   
   // Mobile responsiveness - 横幅維持しつつパディング調整
   @media (max-width: 768px) {
+    min-width: 430px;
     padding: 30px 15px;
-    margin: 15px -90px;
+    margin: 15px 0px;
   }
   
   @media (max-width: 480px) {
+    min-width: 200px;
     padding: 20px 10px;
-    margin: 10px -90px;
+    margin: 10px 0px;
   }
 }
 
@@ -322,4 +324,5 @@
     color: #ef4444; /* 赤色 */
   }
 }
+
 
