@@ -6,11 +6,11 @@
 
 .home-container {
   padding: 1rem 2rem;
-  margin-bottom: 2rem;
+  overflow-y: hidden; /* スクロールを無効化 */
   
   @media (max-width: 768px) {
     padding: 1rem;
-    margin-bottom: 1rem;
+    overflow-y: hidden; /* SP時もスクロールを無効化 */
   }
 }
 
@@ -20,6 +20,7 @@
   display: grid;
   gap: 2rem;
   align-items: flex-start;
+  overflow-y: hidden; /* 常にhidden */
   
   // PC Layout: 2カラム（左：タイトル+説明、右：機能カード）+ 動画（中央）
   grid-template-columns: 1fr 1fr;
@@ -35,6 +36,7 @@
       "features"
       "video";
     gap: 1.5rem;
+    overflow-y: hidden; /* SP時もhidden */
   }
 }
 
