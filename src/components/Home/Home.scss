@@ -28,7 +28,7 @@
     "header features"
     "video video";
   
-  @media (max-width: 768px) {
+  @media (max-width: 970px) {
     // SP Layout: 1カラム（タイトル → 機能カード → 動画）
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -413,3 +413,4 @@
     color: var(--accent-color);
   }
 }
+
