@@ -89,7 +89,7 @@ const resourcesJa = {
           creative: 'クリエイティブ',
           technical: 'テクニカル',
           casual: 'カジュアル',
-          professional: 'プロフェッショナル'
+          professional: 'プロ'
         },
         avatarPrompts: {
           creative: '創造的で芸術的な内容を生成してください',
@@ -395,5 +395,6 @@ i18n
       useSuspense: !isServer // サーバーサイドではSuspenseを使用しない
     }
   });
+
 
 export default i18n;
