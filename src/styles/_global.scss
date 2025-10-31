@@ -32,6 +32,7 @@ body {
   color: var(--text-color);
   transition: background 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
+  overflow-y: auto; /* 縦スクロールを明示的に有効化 */
 }
 
 // =============================================================================
@@ -47,7 +48,13 @@ body {
   flex: 1;
   position: relative;
   overflow-x: hidden;
+  overflow-y: hidden; /* スクロールを無効化 */
   padding-top: var(--header-height); /* ナビゲーションバーとの重複を防ぐ */
+  
+  @media (max-width: 768px) {
+    // SP時も親レベルでスクロールするためhidden
+    overflow-y: hidden;
+  }
 }
 
 .container {
