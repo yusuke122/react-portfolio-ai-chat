@@ -24,6 +24,7 @@ npm install
 
 ```bash
 # 画像解析API（月1,000件まで無料）
+VITE_GOOGLE_VISION_API_KEY=your_google_vision_api_key_here
 
 # SSR設定（オプション）
 SSR_PORT=3000
@@ -117,6 +118,5 @@ vercel --prod
 - CSS for styling
 
 ## Contributing
-
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or features you'd like to add.

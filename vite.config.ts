@@ -30,7 +30,7 @@ export default defineConfig({
       },
     },
   },
-  base: './', // 相対パスでアセットを読み込む
+  base: '/', // Vercel用の絶対パス
   build: {
     manifest: true,
     rollupOptions: {

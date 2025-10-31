@@ -12,6 +12,7 @@
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --outDir dist/server --ssr src/entry-server.tsx",
     "build:legacy": "tsc && vite build",
+    "build:vercel": "vite build",
     "preview": "npm run serve:ssr",
     "preview:spa": "vite preview",
     "serve:ssr": "node server/ssr-prod.js",
