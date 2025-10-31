@@ -300,7 +300,7 @@ body {
       }
 
       .send-button {
-        padding: 0.9rem 1.25rem;
+        padding: 0.9rem calc(1.25rem);
         border: none;
         border-radius: 12px !important;
         background: linear-gradient(135deg, #667eea, #00f5ff) !important;
@@ -322,11 +322,11 @@ body {
           margin-right: 100px;
         }
         
-        // SP時の中央寄せと横幅調整
+        // SP時の中央寄せと横幅調整（左右に15pxずつ拡張）
         @media (max-width: 768px) {
           margin: 0 auto;
-          width: calc(100% - 200px);
-          max-width: 300px;
+          width: calc(100% - 170px); // 200px - 30px = 170px（左右15pxずつ拡張）
+          max-width: 330px; // 300px + 30px = 330px
         }
 
         &:hover:not(:disabled) {
@@ -492,6 +492,7 @@ body {
           
           .nav-text {
             font-size: 0.7rem;
+            white-space: pre-line; /* 改行文字を有効にする */
           }
         }
 
@@ -561,8 +562,8 @@ body {
 
           .send-button {
             min-width: auto;
-            width: calc(100% - 200px);
-            max-width: 300px;
+            width: calc(100% - 170px);
+            max-width: 330px;
             margin: 0 auto;
             background: linear-gradient(135deg, #667eea, #00f5ff) !important;
             color: white !important;
@@ -622,7 +623,7 @@ body {
         background: linear-gradient(135deg, #667eea, #00f5ff) !important;
         color: white !important;
         border-radius: 12px;
-        padding: 0.9rem 1.25rem;
+        padding: 0.9rem calc(1.25rem); // 左右に15px追加
         justify-content: center;
 
         // PC用マージン（文章との距離を一文字分に調整）

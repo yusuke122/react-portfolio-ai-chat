@@ -8,6 +8,24 @@ import { useAIService } from '../../hooks/useAIService';
 import { debugEnvVars } from '../../utils/debugEnv';
 import './ChatInterface.scss';
 
+// Custom hook for detecting mobile screen size
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
+  return isMobile;
+};
+
 interface AIPromptOption {
   id: string;
   label: string;
@@ -38,6 +56,9 @@ export const ChatInterface: React.FC = () => {
   const [selectedImageForAnalysis, setSelectedImageForAnalysis] = useState<string>('');
   const [imageAnalysis, setImageAnalysis] = useState('');
   const [selectedAvatarId, setSelectedAvatarId] = useState<string>('creative');
+
+  // Mobile detection hook
+  const isMobile = useIsMobile();
 
   // Debug environment variables on component mount
   useEffect(() => {
@@ -320,7 +341,9 @@ export const ChatInterface: React.FC = () => {
             whileTap={{ scale: 0.9 }}
           >
             <span className="arrow">＜</span>
-            <span className="nav-text">{t('pages.chat.previousAvatar')}</span>
+            <span className="nav-text">
+              {isMobile ? t('pages.chat.previousAvatar').replace(' ', '\n') : t('pages.chat.previousAvatar')}
+            </span>
           </motion.button>
           
           <div className="avatar-center">
@@ -351,7 +374,9 @@ export const ChatInterface: React.FC = () => {
             whileTap={{ scale: 0.9 }}
           >
             <span className="arrow">＞</span>
-            <span className="nav-text">{t('pages.chat.nextAvatar')}</span>
+            <span className="nav-text">
+              {isMobile ? t('pages.chat.nextAvatar').replace(' ', '\n') : t('pages.chat.nextAvatar')}
+            </span>
           </motion.button>
         </div>
         
