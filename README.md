@@ -108,7 +108,7 @@ vercel --prod
 
 - React 18 + TypeScript
 - React Router
-- SCSS + Bootstrap
+- SCSS + RadixUI + Bootstrap
 - Framer Motion
 - React Hook Form + Zod
 - Resend (サーバーレス関数)
@@ -120,3 +120,4 @@ vercel --prod
 
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or features you'd like to add.
+
