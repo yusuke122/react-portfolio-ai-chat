@@ -10,7 +10,7 @@ interface ThemeState {
 export const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
-      theme: 'light',
+      theme: 'dark',
       toggleTheme: () =>
         set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
     }),
@@ -34,7 +34,27 @@ interface ThemeProviderProps {
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const { theme, toggleTheme } = useThemeStore();
 
-  // Reflect theme to the document for CSS variables `[data-theme=...]`
+  // Set initial dark theme immediately to prevent flash
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      // Check if user has a stored preference, otherwise default to dark
+      const storedTheme = localStorage.getItem('theme-storage');
+      let initialTheme = 'dark';
+      
+      if (storedTheme) {
+        try {
+          const parsed = JSON.parse(storedTheme);
+          initialTheme = parsed.state?.theme || 'dark';
+        } catch (e) {
+          initialTheme = 'dark';
+        }
+      }
+      
+      document.documentElement.setAttribute('data-theme', initialTheme);
+    }
+  }, []);
+
+  // Reflect theme changes to the document
   useEffect(() => {
     if (typeof document !== 'undefined') {
       document.documentElement.setAttribute('data-theme', theme);
