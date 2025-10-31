@@ -29,6 +29,15 @@
     box-shadow: 0 8px 12px var(--shadow-color);
     transform: translateY(-2px);
   }
+  
+  // Mobile responsiveness - パディング調整
+  @media (max-width: 768px) {
+    padding: 0 10px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 5px;
+  }
 }
 // form
 .contact-grid {
@@ -53,7 +62,13 @@
   
   // Mobile responsiveness - 横幅維持しつつパディング調整
   @media (max-width: 768px) {
-    padding: 30px 10px;
+    padding: 30px 15px;
+    margin: 15px 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 20px 10px;
+    margin: 10px 0;
   }
 }
 
@@ -307,4 +322,3 @@
     color: #ef4444; /* 赤色 */
   }
 }
-
