@@ -167,7 +167,7 @@ export const Header: React.FC = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              {theme === 'dark' ? '🌙' : '☀️'}
+              {theme === 'dark' ? '☀️' : '🌙'}
             </motion.button>
 
             <div 
